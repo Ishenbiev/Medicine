@@ -110,6 +110,20 @@ class Feedback(models.Model):
         return f'{self.doctor}, {self.patient}, {self.rating}, {self.comment}'
 
 
+class Chat(models.Model):
+    person = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+
+
+class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    text = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='Chat/', null=True, blank=True)
+    video = models.FileField(upload_to='videos/', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 
 
 
